@@ -35,7 +35,7 @@
             },
             redirectLogin() {
                 this.$store
-                    .dispatch('getLoginUrl', {url: window.location.origin})
+                    .dispatch('getLoginUrl', {url: window.location.href})
                     .then(({data}) => {
                         window.location = data;
                     })
@@ -48,7 +48,7 @@
             },
             decode() {
                 const params = {
-                    url: window.location.origin,
+                    url: window.location.href,
                     code: this.$route.query.code,
                 };
 
