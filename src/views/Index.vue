@@ -48,7 +48,7 @@
             },
             decode() {
                 const params = {
-                    url: window.location.href,
+                    url: window.location.href.split("?")[0],
                     code: this.$route.query.code,
                 };
 
