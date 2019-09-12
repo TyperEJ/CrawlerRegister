@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-        public: 'http://vue.test',
+        public: 'http://vue.test/CrawlerRegister',
         watchOptions: {
             poll: true
         },
