@@ -4,7 +4,6 @@ module.exports = {
       '@vue/app',
       {
         useBuiltIns: "entry",
-        debug: true,
       }
     ]
   ]
