@@ -13,7 +13,7 @@
                     md="4"
             >
                 <div class="fill-height d-flex justify-center">
-                    <img src="../assets/line.svg" class="logo">
+                    <img src="../assets/logo.png" class="logo">
                 </div>
             </v-col>
         </v-row>
