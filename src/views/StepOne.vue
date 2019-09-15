@@ -87,7 +87,7 @@
                 });
             },
             register(){
-                window.location = 'https://developers.line.biz/console/';
+                window.open('https://developers.line.biz/console/','_blank');
             },
         },
         computed: {
