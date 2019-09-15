@@ -5,6 +5,7 @@ import bot from "./bot.module";
 import subscribe from "./subscribe.module";
 import board from "./board.module";
 import member from "./member.module";
+import loader from "./loader.module";
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
         subscribe,
         board,
         member,
+        loader,
     }
 });

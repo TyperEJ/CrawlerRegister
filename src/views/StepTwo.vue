@@ -67,7 +67,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <div class="flex-grow-1"></div>
-                        <v-btn color="primary" to="/step_one">上一步</v-btn>
+                        <v-btn color="primary" @click="warnPrev">上一步</v-btn>
                         <v-btn color="primary" @click="subscribe">訂閱</v-btn>
                     </v-card-actions>
                 </v-card>
@@ -90,7 +90,8 @@
                         return "請輸入關鍵字";
                     }
                     return true;
-                }]
+                }],
+                isSubscribed:false,
             };
         },
         mounted() {
@@ -145,7 +146,28 @@
                             title: '訂閱成功',
                         });
                 });
-            }
+
+                this.isSubscribed = true;
+            },
+            warnPrev(){
+              if(this.isSubscribed)
+              {
+                  this.$router.push({name:'step_one'});
+              }else{
+                  this.$swal.fire({
+                      type:'warning',
+                      title:'尚未儲存資料，是否離開頁面？',
+                      showCancelButton: true,
+                      confirmButtonText:'確定',
+                      cancelButtonText:'取消',
+                      focusCancel:true,
+                  }).then((result)=>{
+                      if (result.value) {
+                          this.$router.push({name:'step_one'});
+                      }
+                  });
+              }
+            },
         },
         computed: {
             ...mapGetters({
