@@ -45,8 +45,8 @@
                                     </v-combobox>
                                 </v-col>
                                 <v-col :cols="1" class="d-flex align-center justify-center">
-                                    <v-btn fab dark x-small color="primary" @click="addKeyword">
-                                        <v-icon dark>mdi-plus</v-icon>
+                                    <v-btn text icon color="primary" @click="addKeyword">
+                                        <v-icon>mdi-plus</v-icon>
                                     </v-btn>
                                 </v-col>
                             </v-row>
@@ -58,8 +58,8 @@
                                     <p class="text--primary">{{ item.keyword }}</p>
                                 </v-col>
                                 <v-col :cols="1" class="d-flex align-center justify-center">
-                                    <v-btn fab dark x-small color="error" @click="removeKeyword(index)">
-                                        <v-icon dark>mdi-minus</v-icon>
+                                    <v-btn text icon color="error" @click="removeKeyword(index)">
+                                        <v-icon>mdi-minus</v-icon>
                                     </v-btn>
                                 </v-col>
                             </v-row>

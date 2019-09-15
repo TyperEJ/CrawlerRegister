@@ -67,6 +67,6 @@
 
 <style scoped>
     .logo {
-        width: 50%;
+        width: 100%;
     }
 </style>

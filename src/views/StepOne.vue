@@ -44,7 +44,7 @@
                     </v-card-text>
                     <v-card-actions>
                         <div class="flex-grow-1"></div>
-                        <v-btn @click="register">註冊機器人</v-btn>
+                        <v-btn @click="register">申請機器人</v-btn>
                         <v-btn color="primary" @click="next">下一步</v-btn>
                     </v-card-actions>
                 </v-card>
