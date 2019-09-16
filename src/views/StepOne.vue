@@ -28,8 +28,7 @@
                                     name="channel_id"
                                     type="text"
                                     v-model="bot.channelSecret"
-                                    :rules="[v => !!v || '請輸入Channel Secret']"
-                                    required
+                                    :rules="secretRules"
                             ></v-text-field>
 
                             <v-text-field
@@ -37,7 +36,7 @@
                                     name="password"
                                     type="text"
                                     v-model="bot.channelToken"
-                                    :rules="[v => !!v || '請輸入Channel Token']"
+                                    :rules="tokenRules"
                                     required
                             ></v-text-field>
                         </v-form>
@@ -57,6 +56,19 @@
     import { mapGetters } from 'vuex'
 
     export default {
+        data:()=> {
+            return {
+                secretRules: [
+                    value => !!value || '請輸入Channel Secret.',
+                    value => (value || '').length > 10 || '請檢查格式',
+                    value => (value || '').length <= 35 || '請檢查格式',
+                ],
+                tokenRules: [
+                    value => !!value || '請輸入Channel Token.',
+                    value => (value || '').length > 40 || '請檢查格式',
+                ],
+            }
+        },
         mounted() {
             this.$store
                 .dispatch('fetchBot')
