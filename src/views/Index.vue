@@ -3,19 +3,12 @@
             class="fill-height"
             fluid
     >
-        <v-row
-                align="center"
-                justify="center"
-        >
-            <v-col
-                    cols="12"
-                    sm="8"
-                    md="4"
-            >
-                <div class="fill-height d-flex justify-center">
-                    <img src="../assets/logo.png" class="logo">
-                </div>
-            </v-col>
+        <v-row align="center" justify="center">
+            <v-img
+                    src="../assets/logo.png"
+                    max-width="300"
+                    aspect-ratio="1"
+            ></v-img>
         </v-row>
     </v-container>
 </template>
@@ -66,7 +59,5 @@
 </script>
 
 <style scoped>
-    .logo {
-        width: 100%;
-    }
+
 </style>
