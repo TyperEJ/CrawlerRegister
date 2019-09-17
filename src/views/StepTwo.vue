@@ -141,10 +141,25 @@
             subscribe() {
                 if(!this.items.length){
                     this.$swal.fire({
-                        type: 'error',
-                        title: '請新增訂閱項目',
-                    }).then(() => {
-                        this.isShake = true;
+                        type: 'warning',
+                        title: '目前項目為空，請問是否清空訂閱？',
+                        showCancelButton: true,
+                        confirmButtonText:'確定',
+                        cancelButtonText:'取消',
+                        focusCancel:true,
+                    }).then((result) => {
+                        if(result.value){
+                            this.$store
+                                .dispatch('updateSubscribe')
+                                .then(() => {
+                                    this.$swal.fire({
+                                        type: 'success',
+                                        title: '已無任何訂閱',
+                                    });
+                                });
+                        }else{
+                            this.isShake = true;
+                        }
                     });
 
                     this.isShake = false;
