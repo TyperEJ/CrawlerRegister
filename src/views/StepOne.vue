@@ -99,7 +99,7 @@
                 });
             },
             register(){
-                window.open('http://developers.line.biz/console/?openExternalBrowser=1','_blank');
+                window.open('https://developers.line.biz/console/register/messaging-api/provider/?openExternalBrowser=1','_blank');
             },
         },
         computed: {
