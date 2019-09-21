@@ -6,6 +6,7 @@ import subscribe from "./subscribe.module";
 import board from "./board.module";
 import member from "./member.module";
 import loader from "./loader.module";
+import snackbar from "./snackbar.module";
 
 Vue.use(Vuex);
 
@@ -16,5 +17,6 @@ export default new Vuex.Store({
         board,
         member,
         loader,
+        snackbar,
     }
 });

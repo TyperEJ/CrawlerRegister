@@ -53,7 +53,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters,mapActions } from 'vuex'
 
     export default {
         data:()=> {
@@ -88,19 +88,22 @@
 
                 this.$store.dispatch('updateBot').then(()=>{
 
-                    this.$swal.fire({
-                        type: 'success',
-                        title: '註冊成功',
-                    }).then(() => {
-                        this.$router.push('step_two');
+                    this.showSnackbar({
+                        isShow:true,
+                        message:'註冊成功',
+                        type:'primary',
+                    }).then(()=>{
+                        this.$router.push({name:'step_two'});
                     });
-
 
                 });
             },
             register(){
                 window.open('https://developers.line.biz/console/register/messaging-api/provider/?openExternalBrowser=1','_blank');
             },
+            ...mapActions([
+                'showSnackbar'
+            ]),
         },
         computed: {
             ...mapGetters(["bot"])
