@@ -33,6 +33,17 @@ interceptor.interceptors.response.use(function(response) {
             name: 'index'
         })
     }
+
+    if (error.response.status === 418) {
+        store.dispatch('showSnackbar',{
+            isShow:true,
+            message:error.response.data,
+            type:'error',
+        });
+
+        store.commit('setLoading',false);
+    }
+
     return Promise.reject(error)
 });
 
