@@ -41,6 +41,7 @@
                                             :clearable="true"
                                             :deletable-chips="true"
                                             :rules="comboboxRule"
+                                            :append-icon="false"
                                     >
                                     </v-combobox>
                                 </v-col>
