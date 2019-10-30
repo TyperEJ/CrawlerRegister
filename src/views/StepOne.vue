@@ -18,33 +18,37 @@
                             dark
                             flat
                     >
-                        <v-toolbar-title>Line Bot 註冊</v-toolbar-title>
+                        <v-toolbar-title>Ptt會員登入</v-toolbar-title>
                         <div class="flex-grow-1"></div>
                     </v-toolbar>
                     <v-card-text>
                         <v-form ref="form">
                             <v-text-field
-                                    label="Channel Secret"
-                                    name="channel_id"
+                                    label="帳號"
+                                    name="account"
                                     type="text"
-                                    v-model="bot.channelSecret"
-                                    :rules="secretRules"
+                                    v-model="ptt.account"
                             ></v-text-field>
 
                             <v-text-field
-                                    label="Channel Token"
+                                    label="密碼"
                                     name="password"
-                                    type="text"
-                                    v-model="bot.channelToken"
-                                    :rules="tokenRules"
-                                    required
+                                    type="password"
+                                    v-model="ptt.password"
+                                    hint="若無帳號或有安全疑慮可以選擇略過此步驟"
+                                    persistent-hint
                             ></v-text-field>
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
-                        <div class="flex-grow-1"></div>
-                        <v-btn @click="register">申請機器人</v-btn>
-                        <v-btn color="primary" @click="next">下一步</v-btn>
+                        <v-row>
+                            <v-col cols="12" sm="6">
+                                <v-btn color="secondary" :block="true" @click="ignore">略過</v-btn>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-btn color="primary" :block="true" @click="next">下一步</v-btn>
+                            </v-col>
+                        </v-row>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -58,20 +62,11 @@
     export default {
         data:()=> {
             return {
-                secretRules: [
-                    value => !!value || '請輸入Channel Secret.',
-                    value => (value || '').length > 10 || '請檢查格式',
-                    value => (value || '').length <= 35 || '請檢查格式',
-                ],
-                tokenRules: [
-                    value => !!value || '請輸入Channel Token.',
-                    value => (value || '').length > 40 || '請檢查格式',
-                ],
             }
         },
         mounted() {
             this.$store
-                .dispatch('fetchBot')
+                .dispatch('fetchPtt')
                 .catch((response) => {
                     this.$swal.fire({
                         type: 'error',
@@ -86,7 +81,7 @@
                     return ;
                 }
 
-                this.$store.dispatch('updateBot').then(()=>{
+                this.$store.dispatch('updatePtt').then(()=>{
 
                     this.showSnackbar({
                         isShow:true,
@@ -98,15 +93,15 @@
 
                 });
             },
-            register(){
-                window.open('https://developers.line.biz/console/register/messaging-api/provider/?openExternalBrowser=1','_blank');
+            ignore(){
+                this.$router.push({name:'step_two'});
             },
             ...mapActions([
                 'showSnackbar'
             ]),
         },
         computed: {
-            ...mapGetters(["bot"])
+            ...mapGetters(["ptt"])
         },
     };
 </script>

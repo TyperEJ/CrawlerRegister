@@ -21,6 +21,11 @@ export default new Router({
       path: '/step_two',
       name: 'step_two',
       component: () => import('./views/StepTwo.vue')
+    },
+    {
+      path: '/step_three',
+      name: 'step_three',
+      component: () => import('./views/StepThree.vue')
     }
   ]
 })

@@ -41,7 +41,7 @@
                                             :clearable="true"
                                             :deletable-chips="true"
                                             :rules="comboboxRule"
-                                            :append-icon="false"
+                                            :append-icon="null"
                                     >
                                     </v-combobox>
                                 </v-col>
@@ -67,9 +67,14 @@
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
-                        <div class="flex-grow-1"></div>
-                        <v-btn color="primary" @click="warnPrev">上一步</v-btn>
-                        <v-btn color="primary" @click="subscribe">訂閱</v-btn>
+                        <v-row>
+                            <v-col cols="12" sm="6">
+                                <v-btn color="secondary" :block="true" @click="warnPrev">上一步</v-btn>
+                            </v-col>
+                            <v-col cols="12" sm="6">
+                                <v-btn color="primary" :block="true" @click="subscribe">訂閱</v-btn>
+                            </v-col>
+                        </v-row>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -147,6 +152,7 @@
                         showCancelButton: true,
                         confirmButtonText:'確定',
                         cancelButtonText:'取消',
+                        confirmButtonColor: '#00c300',
                         focusCancel:true,
                     }).then((result) => {
                         if(result.value){
@@ -156,6 +162,8 @@
                                     this.$swal.fire({
                                         type: 'success',
                                         title: '已無任何訂閱',
+                                        confirmButtonText:'好的',
+                                        confirmButtonColor: '#00c300',
                                     });
                                 });
                         }else{
@@ -171,6 +179,10 @@
                             this.$swal.fire({
                                 type: 'success',
                                 title: '訂閱成功',
+                                confirmButtonText: '確認',
+                                confirmButtonColor: '#00c300',
+                            }).then(() => {
+                                this.$router.push({name:'step_three'});
                             });
                         });
                 }
@@ -189,6 +201,8 @@
                       confirmButtonText:'確定',
                       cancelButtonText:'取消',
                       focusCancel:true,
+                      reverseButtons:true,
+                      confirmButtonColor: '#00c300',
                   }).then((result)=>{
                       if (result.value) {
                           this.$router.push({name:'step_one'});
