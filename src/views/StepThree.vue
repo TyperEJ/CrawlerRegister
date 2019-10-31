@@ -21,19 +21,19 @@
         mounted() {
             this.$store
                 .dispatch('fetchNotifyRegistered')
+                .then(() => {
+                    if (!this.notify.isRegistered) {
+                        this.init();
+                    } else {
+                        this.redirectToPttBot();
+                    }
+                })
                 .catch((response) => {
                     this.$swal.fire({
                         type: 'error',
                         title: response.data,
                     });
                 });
-        },
-        created() {
-            if (!this.notify.isRegistered) {
-                this.init();
-            } else {
-                this.redirectToPttBot();
-            }
         },
         methods: {
             init() {
