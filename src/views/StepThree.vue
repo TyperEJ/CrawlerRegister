@@ -15,9 +15,25 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
+
     export default {
+        mounted() {
+            this.$store
+                .dispatch('fetchNotifyRegistered')
+                .catch((response) => {
+                    this.$swal.fire({
+                        type: 'error',
+                        title: response.data,
+                    });
+                });
+        },
         created() {
-            this.init();
+            if (!this.notify.isRegistered) {
+                this.init();
+            } else {
+                this.redirectToPttBot();
+            }
         },
         methods: {
             init() {
@@ -49,13 +65,21 @@
                 this.$store
                     .dispatch('fetchNotifyCode', params)
                     .then(() => {
-                        window.location = 'line://ti/p/@aov2473x';
+                        this.redirectToPttBot();
                     })
                     .catch(() => {
                         window.location = window.location.href.split("?")[0];
                     });
+            },
+            redirectToPttBot() {
+                window.location = 'line://ti/p/@aov2473x';
             }
-        }
+        },
+        computed: {
+            ...mapGetters({
+                notify: 'notify'
+            })
+        },
     }
 </script>
 
