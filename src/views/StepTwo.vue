@@ -46,9 +46,19 @@
                                     </v-combobox>
                                 </v-col>
                                 <v-col :cols="1" class="d-flex align-center justify-center">
-                                    <v-btn text icon color="primary" :class="{ shake: isShake }" @click="addKeyword">
+                                    <v-tooltip v-model="showHint" top>
+                                        <template v-slot:activator="{ on }">
+                                    <v-btn icon color="primary" :class="{ shake: showHint }" @click="addKeyword">
                                         <v-icon>mdi-plus</v-icon>
                                     </v-btn>
+                                        </template>
+                                        <span>點擊新增項目</span>
+                                    </v-tooltip>
+                                </v-col>
+                            </v-row>
+                            <v-row v-show="!items.length">
+                                <v-col :cols="12">
+                                    <p class="headline font-weight-bold text-center">訂閱項目為空</p>
                                 </v-col>
                             </v-row>
                             <v-row no-gutters v-for="(item,index) in items" :key='index'>
@@ -59,7 +69,7 @@
                                     <p class="text--primary">{{ item.keyword }}</p>
                                 </v-col>
                                 <v-col :cols="1" class="d-flex align-center justify-center">
-                                    <v-btn text icon color="error" @click="removeKeyword(index)">
+                                    <v-btn icon color="error" @click="removeKeyword(index)">
                                         <v-icon>mdi-minus</v-icon>
                                     </v-btn>
                                 </v-col>
@@ -98,7 +108,7 @@
                     return true;
                 }],
                 isSubscribed:false,
-                isShake:false,
+                showHint:false,
             };
         },
         mounted() {
@@ -127,6 +137,11 @@
                     return ;
                 }
 
+                if(this.showHint)
+                {
+                    this.showHint = false;
+                }
+
                 let obj = {
                     'board': String,
                     'keyword': String
@@ -145,6 +160,13 @@
                 this.$refs.form.reset();
             },
             subscribe() {
+                if(this.board && this.keywords)
+                {
+                    this.showHint = true;
+
+                    return;
+                }
+
                 if(!this.items.length){
                     this.$swal.fire({
                         type: 'warning',
@@ -164,14 +186,15 @@
                                         title: '已無任何訂閱',
                                         confirmButtonText:'好的',
                                         confirmButtonColor: '#00c300',
+                                    }).then(() => {
+                                        this.$router.push({name:'step_three'});
                                     });
                                 });
                         }else{
-                            this.isShake = true;
+                            this.showHint = true;
                         }
                     });
 
-                    this.isShake = false;
                 }else{
                     this.$store
                         .dispatch('updateSubscribe')

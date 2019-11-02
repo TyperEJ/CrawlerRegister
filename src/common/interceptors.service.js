@@ -23,9 +23,17 @@ interceptor.interceptors.response.use(function(response) {
 }, function(error) {
 
     if (error.response.status === 401) {
-        router.push({
-            name: 'index'
-        })
+        store.dispatch('showSnackbar',{
+            isShow:true,
+            message:'驗證錯誤',
+            type:'error',
+        }).then(() => {
+            router.push({
+                name: 'index'
+            });
+        });
+
+        store.commit('setLoading',false);
     }
 
     if (error.response.status === 404) {
@@ -38,6 +46,16 @@ interceptor.interceptors.response.use(function(response) {
         store.dispatch('showSnackbar',{
             isShow:true,
             message:error.response.data,
+            type:'error',
+        });
+
+        store.commit('setLoading',false);
+    }
+
+    if (error.response.status === 422) {
+        store.dispatch('showSnackbar',{
+            isShow:true,
+            message:'資料驗證錯誤',
             type:'error',
         });
 

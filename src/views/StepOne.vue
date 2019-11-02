@@ -28,6 +28,8 @@
                                     name="account"
                                     type="text"
                                     v-model="ptt.account"
+                                    :rules="accountRules"
+                                    required
                             ></v-text-field>
 
                             <v-text-field
@@ -36,7 +38,9 @@
                                     type="password"
                                     v-model="ptt.password"
                                     hint="若無帳號或有安全疑慮可以選擇略過此步驟"
+                                    :rules="passwordRules"
                                     persistent-hint
+                                    required
                             ></v-text-field>
                         </v-form>
                     </v-card-text>
@@ -62,6 +66,12 @@
     export default {
         data:()=> {
             return {
+                accountRules: [
+                    value => !!value || '請輸入帳號.',
+                ],
+                passwordRules: [
+                    value => !!value || '請輸入密碼.',
+                ],
             }
         },
         mounted() {
