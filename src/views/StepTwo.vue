@@ -38,7 +38,6 @@
                                             label="關鍵字"
                                             :multiple="true"
                                             :small-chips="true"
-                                            :clearable="true"
                                             :deletable-chips="true"
                                             :rules="comboboxRule"
                                             :append-icon="null"
@@ -77,11 +76,22 @@
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
-                        <v-row>
+                        <v-row v-if="!notify.isRegistered">
                             <v-col cols="12" sm="6">
                                 <v-btn color="secondary" :block="true" @click="warnPrev">上一步</v-btn>
                             </v-col>
                             <v-col cols="12" sm="6">
+                                <v-btn color="primary" :block="true" @click="subscribe">訂閱</v-btn>
+                            </v-col>
+                        </v-row>
+                        <v-row v-else>
+                            <v-col cols="12" sm="4">
+                                <v-btn color="secondary" :block="true" @click="warnPrev">上一步</v-btn>
+                            </v-col>
+                            <v-col cols="12" sm="4">
+                                <v-btn color="primary" :block="true" @click="rebind">重新綁定通知</v-btn>
+                            </v-col>
+                            <v-col cols="12" sm="4">
                                 <v-btn color="primary" :block="true" @click="subscribe">訂閱</v-btn>
                             </v-col>
                         </v-row>
@@ -112,6 +122,15 @@
             };
         },
         mounted() {
+            this.$store
+                .dispatch('fetchNotifyRegistered')
+                .catch((response) => {
+                    this.$swal.fire({
+                        type: 'error',
+                        title: response.data,
+                    });
+                });
+
             this.$store
                 .dispatch('fetchBoard')
                 .catch((response) => {
@@ -233,11 +252,17 @@
                   });
               }
             },
+            rebind(){
+                this.$store.commit('setNotifyRebind',true);
+
+                this.subscribe();
+            }
         },
         computed: {
             ...mapGetters({
                 items: 'subscribes',
                 boardOptions: 'boards',
+                notify: 'notify',
             })
         },
     };

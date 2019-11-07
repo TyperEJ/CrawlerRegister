@@ -2,7 +2,8 @@ import ApiService from "@/common/api.service";
 
 const state = {
     notify:{
-        isRegistered:Boolean
+        isRegistered:Boolean,
+        rebind:false,
     }
 };
 
@@ -44,7 +45,10 @@ const actions = {
 const mutations = {
     setNotifyRegister(state, data) {
         state.notify.isRegistered = data;
-    }
+    },
+    setNotifyRebind(state, data) {
+        state.notify.rebind = data;
+    },
 };
 
 export default {
