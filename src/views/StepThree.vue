@@ -19,20 +19,9 @@
 
     export default {
         mounted() {
-            if(!this.notify.isRegistered)
-            {
-                this.$swal.fire({
-                    type: 'warning',
-                    title: '首次綁定請選擇',
-                    text: '透過1對1聊天接收LINE Notify的通知',
-                    confirmButtonText: '好的',
-                    confirmButtonColor: '#00c300',
-                }).then(() => {
-                    this.init();
-                });
-            }else if(this.notify.rebind){
+            if (this.notify.rebind||!this.notify.isRegistered) {
                 this.init();
-            }else{
+            } else {
                 this.redirectToPttBot();
             }
         },
