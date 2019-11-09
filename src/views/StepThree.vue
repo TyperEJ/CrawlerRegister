@@ -19,18 +19,40 @@
 
     export default {
         mounted() {
-            if (this.notify.rebind||!this.notify.isRegistered) {
-                this.init();
-            } else {
-                this.redirectToPttBot();
-            }
+            this.$store
+                .dispatch('fetchNotifyRegistered')
+                .then(() => {
+                    this.init();
+                })
+                .catch((response) => {
+                    this.$swal.fire({
+                        type: 'error',
+                        title: response.data,
+                    });
+                });
         },
         methods: {
             init() {
-                if (!this.$route.query.code) {
-                    this.redirectNotifyAuth();
-                } else {
+
+                if(this.$route.query.code)
+                {
                     this.notifyDecode();
+                }else if (!this.notify.isRegistered) {
+
+                    this.$swal.fire({
+                        type: 'warning',
+                        title: '首次綁定請選擇',
+                        text: '透過1對1聊天接收LINE Notify的通知',
+                        confirmButtonText: '好的',
+                        confirmButtonColor: '#00c300',
+                    }).then(() => {
+                        this.redirectNotifyAuth();
+                    });
+
+                }else if(this.notify.rebind) {
+                    this.redirectNotifyAuth();
+                }else {
+                    this.redirectToPttBot();
                 }
             },
             redirectNotifyAuth() {
