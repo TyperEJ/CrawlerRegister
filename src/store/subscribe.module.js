@@ -3,8 +3,8 @@ import ApiService from "@/common/api.service";
 const state = {
     subscribes: [
         {
-            board:String,
-            keyword:String,
+            board:null,
+            keyword:null,
         }
     ]
 };
