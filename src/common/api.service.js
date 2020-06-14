@@ -6,7 +6,7 @@ import JwtService from "@/common/jwt.service";
 const ApiService = {
     init() {
         Vue.use(VueAxios, axios);
-        Vue.axios.defaults.baseURL = 'https://ejlin.me/api';
+        Vue.axios.defaults.baseURL = 'https://ejlin.ga/api';
     },
 
     setHeader() {
