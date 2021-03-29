@@ -6,7 +6,7 @@ import JwtService from "@/common/jwt.service";
 const ApiService = {
     init() {
         Vue.use(VueAxios, axios);
-        Vue.axios.defaults.baseURL = 'https://ejlin.nctu.me/api';
+        Vue.axios.defaults.baseURL = 'http://128.199.209.82/api';
     },
 
     setHeader() {
